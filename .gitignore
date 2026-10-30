@@ -1,0 +1,21 @@
+# Dependencias de Node.js
+node_modules/
+
+# Binarios de yt-dlp y FFmpeg (se descargan automáticamente con iniciar.bat)
+bin/
+
+# Descargas de audio del usuario
+downloads/
+
+# Base de datos y estado local
+data/
+
+# Archivos del sistema y logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

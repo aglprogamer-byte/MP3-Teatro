@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎭 MP3 Teatro Studio – Descargador, Recortador y Mezclador</title>
+  <meta name="description" content="Descarga MP3 desde YouTube, organiza tu lista, recorta tiempos exactos y une todo en un audio final con pausas de silencio para obras de teatro y títeres.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-canvas">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-name">MP3 Teatro Studio</h1>
+          <p class="brand-tagline">Descargador · Recortador · Mezclador con Pausas para Títeres y Teatro</p>
+        </div>
+      </div>
+      <div class="header-nav">
+        <button id="btnOpenFolder" class="hdr-btn" title="Abrir carpeta de descargas MP3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Carpeta MP3
+        </button>
+      </div>
+    </header>
+
+    <main class="app-main">
+
+      <!-- ═══════════════ SECTION 1: DOWNLOADER ═══════════════ -->
+      <section class="panel panel-download" id="panelDownload">
+        <div class="panel-header">
+          <div class="panel-icon yt-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div>
+            <h2 class="panel-title">Descargar desde YouTube</h2>
+            <p class="panel-desc">Pega el link de un video de YouTube para descargarlo en MP3 y añadirlo a tu lista</p>
+          </div>
+        </div>
+
+        <form id="downloadForm" class="dl-form">
+          <div class="url-row">
+            <div class="url-input-wrapper">
+              <svg class="url-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <input type="text" id="youtubeUrl" class="url-input" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off" required>
+              <button type="button" id="btnPaste" class="paste-btn" title="Pegar del portapapeles">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Pegar
+              </button>
+            </div>
+          </div>
+
+          <div class="dl-options-row">
+            <div class="quality-group">
+              <label for="qualitySelect" class="field-label">Calidad:</label>
+              <select id="qualitySelect" class="sel">
+                <option value="0">320 kbps (Máxima)</option>
+                <option value="2">256 kbps (Alta)</option>
+                <option value="4">192 kbps (Normal)</option>
+              </select>
+            </div>
+            <button type="submit" id="btnDownload" class="btn btn-yt">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Descargar y Añadir
+            </button>
+          </div>
+        </form>
+
+        <!-- Download Progress -->
+        <div id="dlStatus" class="progress-box hidden">
+          <div class="progress-top">
+            <div class="progress-info">
+              <div class="spinner"></div>
+              <div>
+                <div id="dlStatusTitle" class="progress-title">Descargando...</div>
+                <div id="dlStatusDetail" class="progress-detail">Iniciando...</div>
+              </div>
+            </div>
+            <span id="dlPercent" class="progress-pct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="dlBar" class="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ SECTION 2: TRACKS STACK ═══════════════ -->
+      <section class="panel panel-stack" id="panelStack">
+        <div class="stack-header">
+          <div class="stack-title-row">
+            <h2 class="panel-title">
+              Lista de Escenas
+              <span id="trackCountBadge" class="badge badge-blue">0 pistas</span>
+            </h2>
+            <p class="panel-desc">Arrastra las tarjetas o usa las flechas para ordenar la secuencia de tu obra.</p>
+          </div>
+          <div class="stack-actions">
+            <button id="btnSelectAll" class="btn-ghost btn-sm">✓ Todas</button>
+            <button id="btnDeselectAll" class="btn-ghost btn-sm">✗ Ninguna</button>
+            <button id="btnClearTracks" class="btn-ghost btn-sm btn-danger-ghost">🗑 Vaciar lista</button>
+          </div>
+        </div>
+
+        <div id="tracksContainer" class="tracks-list">
+          <div id="emptyState" class="empty-state">
+            <div class="empty-icon">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </div>
+            <h3>Lista vacía</h3>
+            <p>Pega un enlace de YouTube arriba para añadir la primera pista de tu obra</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ SECTION 3: MERGE STUDIO ═══════════════ -->
+      <section class="panel panel-merge" id="panelMerge">
+        <div class="panel-header">
+          <div class="panel-icon merge-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          </div>
+          <div>
+            <h2 class="panel-title">Unir en un solo audio</h2>
+            <p class="panel-desc">Fusiona las pistas seleccionadas con sus recortes, pausas de silencio y orden de escenas</p>
+          </div>
+        </div>
+
+        <div class="merge-summary-bar">
+          <div class="summary-stat">
+            <span class="summary-label">Pistas seleccionadas</span>
+            <span id="selectedCount" class="summary-val highlight-val">0</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-stat">
+            <span class="summary-label">Duración estimada</span>
+            <span id="totalDurationEstimate" class="summary-val mono-val">00:00</span>
+          </div>
+        </div>
+
+        <div class="merge-controls">
+          <!-- Output name -->
+          <div class="control-group">
+            <label class="field-label" for="outputFileName">Nombre del archivo final:</label>
+            <div class="filename-row">
+              <input type="text" id="outputFileName" class="text-input" value="Obra_Teatro_Combinada" placeholder="Nombre de la obra">
+              <span class="ext-badge">.mp3</span>
+            </div>
+          </div>
+
+          <!-- Theater Silence Control -->
+          <div class="silence-card">
+            <div class="silence-card-header">
+              <div class="silence-card-icon">🎭</div>
+              <div>
+                <div class="silence-card-title">Pausa de silencio entre escenas</div>
+                <div class="silence-card-hint">Tiempo extra para cambio de muñecos, escenografía o decorados</div>
+              </div>
+            </div>
+            <div class="silence-row">
+              <select id="silenceSelect" class="sel">
+                <option value="0">Sin pausa (0 seg)</option>
+                <option value="2">2 segundos – Pausa corta</option>
+                <option value="3">3 segundos</option>
+                <option value="5" selected>5 segundos – Cambio de muñecos ⭐</option>
+                <option value="8">8 segundos</option>
+                <option value="10">10 segundos – Cambio de escenografía</option>
+                <option value="15">15 segundos</option>
+                <option value="20">20 segundos</option>
+                <option value="30">30 segundos</option>
+                <option value="custom">Personalizado...</option>
+              </select>
+              <div id="customSilenceBox" class="custom-sil hidden">
+                <input type="number" id="customSilenceInput" min="1" max="600" value="7" class="num-input">
+                <span class="unit-label">seg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Crossfade -->
+          <div class="crossfade-row">
+            <label class="toggle-label">
+              <input type="checkbox" id="crossfadeToggle" class="toggle-cb">
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              <span class="toggle-text">Fundido suave (crossfade) — solo funciona sin silencio</span>
+            </label>
+            <div id="crossfadeDurationBox" class="crossfade-dur">
+              <label class="field-label" for="crossfadeSeconds">Duración:</label>
+              <select id="crossfadeSeconds" class="sel sel-sm">
+                <option value="1">1 seg</option>
+                <option value="2" selected>2 seg</option>
+                <option value="3">3 seg</option>
+                <option value="4">4 seg</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="merge-action-row">
+          <button id="btnMerge" class="btn btn-merge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/><circle cx="12" cy="12" r="3"/></svg>
+            Unir Todas las Pistas en un Solo Audio MP3
+          </button>
+        </div>
+
+        <!-- Merge Progress -->
+        <div id="mergeProgressBox" class="progress-box progress-purple hidden">
+          <div class="progress-top">
+            <div class="progress-info">
+              <div class="spinner spinner-purple"></div>
+              <div>
+                <div class="progress-title">Mezclando con FFmpeg...</div>
+                <div id="mergeStatusDetail" class="progress-detail">Renderizando a 320 kbps...</div>
+              </div>
+            </div>
+            <span id="mergePercent" class="progress-pct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="mergeBar" class="progress-fill progress-fill-purple" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Merge Result -->
+        <div id="mergeResultBox" class="result-card hidden">
+          <div class="result-header">
+            <div class="result-check">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h3 id="resultTitle" class="result-title">¡Audio generado con éxito!</h3>
+              <p id="resultMeta" class="result-meta"></p>
+            </div>
+          </div>
+          <div class="result-player">
+            <audio id="resultAudioPlayer" controls class="native-player"></audio>
+          </div>
+          <div class="result-actions">
+            <a id="btnDownloadMerged" class="btn btn-primary" download>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Descargar MP3 Final
+            </a>
+            <button id="btnOpenMergedFolder" class="btn btn-secondary">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              Ver en carpeta
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ SECTION 4: MERGED HISTORY ═══════════════ -->
+      <section class="panel panel-history" id="panelHistory">
+        <div class="panel-header">
+          <div class="panel-icon history-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div>
+            <h2 class="panel-title">
+              Audios Creados
+              <span id="mergedCountBadge" class="badge badge-purple">0 audios</span>
+            </h2>
+            <p class="panel-desc">Historial de todos los audios combinados. Escucha, descarga o elimina.</p>
+          </div>
+        </div>
+        <div id="mergedFilesList" class="merged-list">
+          <div id="emptyMergedState" class="empty-state empty-sm">
+            <p>Aún no has creado ningún audio combinado.<br>¡Une tus pistas arriba para crear el primero!</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-icon-wrap">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        </svg>
+      </div>
+      <h3 id="modalTitle" class="modal-title">¿Confirmar acción?</h3>
+      <p id="modalDesc" class="modal-desc">Esta acción no se puede deshacer.</p>
+      <div class="modal-btns">
+        <button id="modalBtnCancel" class="btn btn-secondary">Cancelar</button>
+        <button id="modalBtnConfirm" class="btn btn-danger">🗑 Sí, Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
